@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { Zap } from "lucide-react";
 import { WalletButton } from "@/components/shared/WalletButton";
 
 export function Navbar() {
@@ -12,10 +11,6 @@ export function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center
-                            shadow-lg shadow-primary/20 group-hover:shadow-primary/40 transition-shadow">
-              <Zap className="w-4 h-4 text-white" />
-            </div>
             <span className="text-lg font-bold text-text-primary tracking-tight">
               Optivault
             </span>
