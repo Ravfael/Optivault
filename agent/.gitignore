@@ -1,0 +1,7 @@
+echo ".env" >> .gitignore
+echo "node_modules/" >> .gitignore
+
+.env
+node_modules/
+echo "agent-keypair.json" >> ~/Optivault/agent/.gitignore
+agent-keypair.json
