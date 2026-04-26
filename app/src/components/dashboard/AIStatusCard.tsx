@@ -1,14 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Bot, Pause, Play, Clock, ArrowRightLeft } from "lucide-react";
 import { StatusIndicator } from "@/components/shared/StatusIndicator";
 import { CryptoTooltip } from "@/components/shared/Tooltip";
 
-export function AIStatusCard() {
-  const [isActive, setIsActive] = useState(true);
+interface AIStatusCardProps {
+  isActiveInitial?: boolean;
+  lastRebalanceTime?: number;
+}
+
+export function AIStatusCard({ isActiveInitial = true, lastRebalanceTime }: AIStatusCardProps) {
+  const [isActive, setIsActive] = useState(isActiveInitial);
   const [showConfirm, setShowConfirm] = useState(false);
+
+  useEffect(() => {
+    setIsActive(isActiveInitial);
+  }, [isActiveInitial]);
 
   const handleToggle = () => {
     if (showConfirm) {
@@ -20,30 +29,27 @@ export function AIStatusCard() {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.3, duration: 0.5 }}
-      className="glass-card p-6 relative overflow-hidden"
-    >
+    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.5 }} className="glass-card p-6 relative overflow-hidden">
       {/* Animated gradient border top */}
-      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-primary via-secondary to-primary 
-                      bg-[length:200%_100%] animate-[gradient_3s_ease_infinite]" 
-           style={{ backgroundSize: "200% 100%", animation: "gradient 3s ease infinite" }} />
+      <div
+        className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-primary via-secondary to-primary 
+                      bg-[length:200%_100%] animate-[gradient_3s_ease_infinite]"
+        style={{ backgroundSize: "200% 100%", animation: "gradient 3s ease infinite" }}
+      />
 
       <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-6">
         <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 
-                          flex items-center justify-center border border-primary/10">
+          <div
+            className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 
+                          flex items-center justify-center border border-primary/10"
+          >
             <Bot className="w-6 h-6 text-primary" />
           </div>
           <div>
             <h3 className="text-lg font-semibold text-text-primary">AI Agent</h3>
             <div className="flex items-center gap-2 mt-0.5">
               <StatusIndicator status={isActive ? "active" : "paused"} size="sm" />
-              <span className={`text-sm font-medium ${isActive ? "text-success" : "text-warning"}`}>
-                {isActive ? "Active" : "Paused"}
-              </span>
+              <span className={`text-sm font-medium ${isActive ? "text-success" : "text-warning"}`}>{isActive ? "Active" : "Paused"}</span>
             </div>
           </div>
         </div>
@@ -63,12 +69,7 @@ export function AIStatusCard() {
           <button
             onClick={handleToggle}
             className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200
-                       ${showConfirm
-                         ? "bg-warning/20 text-warning border border-warning/30 hover:bg-warning/30"
-                         : isActive
-                           ? "bg-white/[0.06] text-text-muted hover:text-text-primary hover:bg-white/[0.1]"
-                           : "btn-primary"
-                       }`}
+                       ${showConfirm ? "bg-warning/20 text-warning border border-warning/30 hover:bg-warning/30" : isActive ? "bg-white/[0.06] text-text-muted hover:text-text-primary hover:bg-white/[0.1]" : "btn-primary"}`}
           >
             {isActive ? (
               <>
@@ -111,7 +112,7 @@ export function AIStatusCard() {
             <p className="text-sm text-text-muted">
               Last action:{" "}
               <span className="text-text-primary">
-                <CryptoTooltip term="Rebalance">Rebalanced</CryptoTooltip> 2 hours ago
+                <CryptoTooltip term="Rebalance">Rebalanced</CryptoTooltip> {lastRebalanceTime ? new Date(lastRebalanceTime * 1000).toLocaleString() : "Recently"}
               </span>
             </p>
           </div>
