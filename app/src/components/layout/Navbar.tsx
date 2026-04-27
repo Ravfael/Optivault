@@ -1,53 +1,38 @@
 "use client";
 
 import Link from "next/link";
-import { WalletButton } from "@/components/shared/WalletButton";
+import Image from "next/image";
 
 export function Navbar() {
   return (
-    <header className="fixed top-0 left-0 right-0 z-40 border-b border-white/[0.06]
-                        bg-background/60 backdrop-blur-xl">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 group">
-            <span className="text-lg font-bold text-text-primary tracking-tight">
-              Optivault
-            </span>
+    <header className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-5xl rounded-full border border-white/[0.05] bg-[#1a1a24]/80 backdrop-blur-md px-8 py-4">
+      <div className="flex items-center justify-between">
+        {/* Logo */}
+        <Link href="/" className="flex items-center group">
+          <Image src="/logo_main.png" alt="Optivault" width={140} height={40} className="h-8 md:h-10 w-auto" priority />
+        </Link>
+
+        {/* Nav Links */}
+        <nav className="hidden md:flex items-center gap-10">
+          <Link href="#" className="text-sm font-medium text-white hover:text-white/80 transition-colors">
+            Optivault
           </Link>
+          <Link href="#" className="text-sm font-medium text-white hover:text-white/80 transition-colors">
+            Optivault
+          </Link>
+          <Link href="#" className="text-sm font-medium text-white hover:text-white/80 transition-colors">
+            Optivault
+          </Link>
+        </nav>
 
-          {/* Nav Links */}
-          <nav className="hidden md:flex items-center gap-8">
-            <a
-              href="#how-it-works"
-              className="text-sm text-text-muted hover:text-text-primary transition-colors"
-            >
-              How It Works
-            </a>
-            <a
-              href="#protocols"
-              className="text-sm text-text-muted hover:text-text-primary transition-colors"
-            >
-              Protocols
-            </a>
-            <a
-              href="#stats"
-              className="text-sm text-text-muted hover:text-text-primary transition-colors"
-            >
-              Stats
-            </a>
-          </nav>
-
-          {/* CTA */}
-          <div className="flex items-center gap-3">
-            <Link
-              href="/dashboard"
-              className="hidden sm:block text-sm text-text-muted hover:text-text-primary transition-colors"
-            >
-              Dashboard
-            </Link>
-            <WalletButton />
-          </div>
+        {/* CTA */}
+        <div className="flex items-center">
+          <Link
+            href="/dashboard"
+            className="text-sm font-medium text-white hover:text-white/80 transition-colors"
+          >
+            Dashboard
+          </Link>
         </div>
       </div>
     </header>

@@ -36,11 +36,13 @@ export interface PortfolioSnapshot {
 }
 
 export const PROTOCOLS: Protocol[] = [
-  { name: "Kamino", logo: "🔷", apy: 8.2, color: "#3B82F6", tvl: 420_000_000 },
-  { name: "MarginFi", logo: "🟪", apy: 6.1, color: "#8B5CF6", tvl: 310_000_000 },
-  { name: "Marinade", logo: "🟠", apy: 7.4, color: "#F97316", tvl: 580_000_000 },
-  { name: "Raydium", logo: "🟣", apy: 12.8, color: "#A855F7", tvl: 290_000_000 },
-  { name: "Orca", logo: "⚪", apy: 9.3, color: "#06B6D4", tvl: 210_000_000 },
+  { name: "Kamino", logo: "/kamino.png", apy: 8.2, color: "#3B82F6", tvl: 420_000_000 },
+  { name: "MarginFi", logo: "/marginfi.png", apy: 6.1, color: "#8B5CF6", tvl: 310_000_000 },
+  { name: "Marinade", logo: "/marinade.png", apy: 7.4, color: "#F97316", tvl: 580_000_000 },
+  { name: "Raydium", logo: "/raydium.jpg", apy: 12.8, color: "#A855F7", tvl: 290_000_000 },
+  { name: "Orca", logo: "/orca.jpg", apy: 9.3, color: "#06B6D4", tvl: 210_000_000 },
+  { name: "Solend", logo: "/solend.jpg", apy: 5.8, color: "#F97316", tvl: 150_000_000 },
+  { name: "Jupiter", logo: "/jupiter.jpeg", apy: 15.2, color: "#14B8A6", tvl: 850_000_000 },
 ];
 
 export const MOCK_ALLOCATIONS: Allocation[] = [
