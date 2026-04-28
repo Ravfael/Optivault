@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export function Navbar() {
   return (
-    <header className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-5xl rounded-full border border-white/[0.05] bg-[#1a1a24]/80 backdrop-blur-md px-8 py-4">
+    <header className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-7xl rounded-full border border-white/[0.05] bg-[#1a1a24]/80 backdrop-blur-md px-8 py-4">
       <div className="flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center group">
@@ -14,14 +14,17 @@ export function Navbar() {
 
         {/* Nav Links */}
         <nav className="hidden md:flex items-center gap-10">
-          <Link href="#" className="text-sm font-medium text-white hover:text-white/80 transition-colors">
-            Optivault
+          <Link href="#how-it-works" className="text-sm font-medium text-white hover:text-white/80 transition-colors">
+            How It Works
           </Link>
-          <Link href="#" className="text-sm font-medium text-white hover:text-white/80 transition-colors">
-            Optivault
+          <Link href="#protocols" className="text-sm font-medium text-white hover:text-white/80 transition-colors">
+            Protocols
           </Link>
-          <Link href="#" className="text-sm font-medium text-white hover:text-white/80 transition-colors">
-            Optivault
+          <Link href="#security" className="text-sm font-medium text-white hover:text-white/80 transition-colors">
+            Security
+          </Link>
+          <Link href="#faq" className="text-sm font-medium text-white hover:text-white/80 transition-colors">
+            FAQ
           </Link>
         </nav>
 
