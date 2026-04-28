@@ -59,8 +59,10 @@ export function ReviewStep({ amount, asset, riskProfile, timeHorizon, customDate
       if (riskProfile === "conservative") rLevel = 1;
       else if (riskProfile === "aggressive") rLevel = 3;
 
-      const initSuccess = await initializeVault(rLevel, days);
-      if (!initSuccess) throw new Error("Failed to initialize vault.");
+      const initRes = await initializeVault(rLevel, days);
+      if (initRes && !initRes.success) {
+        throw new Error(initRes.error || "Failed to initialize vault.");
+      }
 
       const res = await deposit(numAmount);
       if (res && res.success && res.signature) {

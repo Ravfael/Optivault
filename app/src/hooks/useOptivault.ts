@@ -24,6 +24,12 @@ export function useOptivault() {
       const [vaultPDA] = getVaultPDA(provider.wallet.publicKey);
       const [configPDA] = getUserConfigPDA(provider.wallet.publicKey);
 
+      // Check balance to provide a better error instead of simulation failed block
+      const balance = await connection.getBalance(provider.wallet.publicKey);
+      if (balance === 0) {
+        return { success: false, error: "Your Devnet wallet has 0 SOL. Please use faucet.solana.com to get Devnet SOL to pay for transaction fees." };
+      }
+
       const timeHorizon = Math.floor(Date.now() / 1000) + timeHorizonDays * 86400;
 
       const tx = await program.methods
@@ -51,8 +57,15 @@ export function useOptivault() {
       const program = getProgram(provider);
       const [vaultPDA] = getVaultPDA(provider.wallet.publicKey);
 
-      // Convert SOL ke lamports (1 SOL = 1_000_000_000 lamports)
-      const lamports = amountSol * 1_000_000_000;
+      // We are simulating USDC with Devnet SOL.
+      // 1000 "USDC" normally = 1000 SOL if * 1_000_000_000, which is impossible to get from faucets.
+      // Scaling down to 10,000 lamports per nominal USDC so a 1000 "USDC" mock deposit only uses 0.01 Devnet SOL.
+      const lamports = amountSol * 10_000;
+
+      const balance = await connection.getBalance(provider.wallet.publicKey);
+      if (balance < lamports) {
+        return { success: false, error: `Insufficient Devnet SOL for this deposit simulation. You need at least ${(lamports / 1e9).toFixed(5)} SOL.` };
+      }
 
       const tx = await program.methods
         .deposit(new BN(lamports))

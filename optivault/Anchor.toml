@@ -9,10 +9,16 @@ skip-lint = false
 optivault = "GAKRYNWn7YjHQB8ihiBYYn1QVp2g4vVt8wtTyEK65syZ"
 
 [provider]
-cluster = "localnet"
+cluster = "devnet"
 wallet = "~/.config/solana/id.json"
 
 [scripts]
-test = "cargo test"
+test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"
 
 [hooks]
+
+[test]
+startup_wait = 5000
+
+[test.validator]
+url = "https://api.devnet.solana.com"

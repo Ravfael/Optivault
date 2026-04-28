@@ -405,7 +405,7 @@ export default function LandingPage() {
               { q: "Can I withdraw anytime?", a: "Absolutely. There are no lock-up periods. You can withdraw your funds at any time directly through the dashboard with zero platform exit fees." },
               {
                 q: "How does the AI decide where to put my funds?",
-                a: "The AI evaluates dozens of data points across Solana protocols every second—including base APY, reward token volatility, liquidity depth, and protocol safety scores—to determine the optimal risk-adjusted allocation.",
+                a: "The AI evaluates dozens of data points across Solana protocols every second including base APY, reward token volatility, liquidity depth, and protocol safety scores to determine the optimal risk-adjusted allocation.",
               },
               { q: "What are the risks?", a: "While Optivault minimizes risk through diversification and strict protocol vetting, all DeFi investments carry inherent smart contract risks. Never invest more than you can afford to lose." },
             ].map((faq, i) => (
