@@ -21,7 +21,7 @@ export function WalletButton({ variant = "default" }: WalletButtonProps) {
   }
 
   return (
-    <div className={`wallet-button-container ${variant === "sidebar" ? "w-full" : ""}`}>
+    <div className={`wallet-button-container ${variant === "sidebar" ? "w-full sidebar-wallet" : ""}`}>
       <WalletMultiButton
         style={{
           width: variant === "sidebar" ? "100%" : "auto",

@@ -57,12 +57,11 @@ export function AllocationsTable() {
               >
                 <td className="py-4 pr-4">
                   <div className="flex items-center gap-3">
-                    <div
-                      className="w-8 h-8 rounded-lg flex items-center justify-center text-lg"
-                      style={{ backgroundColor: `${allocation.color}15` }}
-                    >
-                      {allocation.logo}
-                    </div>
+                    <img
+                      src={allocation.logo}
+                      alt={allocation.protocol}
+                      className="w-8 h-8 rounded-full object-cover border border-white/10"
+                    />
                     <span className="text-sm font-medium text-text-primary">
                       {allocation.protocol}
                     </span>
@@ -120,7 +119,11 @@ export function AllocationsTable() {
           >
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-2">
-                <span className="text-lg">{allocation.logo}</span>
+                <img
+                  src={allocation.logo}
+                  alt={allocation.protocol}
+                  className="w-6 h-6 rounded-full object-cover border border-white/10"
+                />
                 <span className="text-sm font-medium text-text-primary">
                   {allocation.protocol}
                 </span>

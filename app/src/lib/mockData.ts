@@ -36,13 +36,13 @@ export interface PortfolioSnapshot {
 }
 
 export const PROTOCOLS: Protocol[] = [
-  { name: "Kamino", logo: "/kamino.png", apy: 8.2, color: "#3B82F6", tvl: 420_000_000 },
-  { name: "MarginFi", logo: "/marginfi.png", apy: 6.1, color: "#8B5CF6", tvl: 310_000_000 },
-  { name: "Marinade", logo: "/marinade.png", apy: 7.4, color: "#F97316", tvl: 580_000_000 },
-  { name: "Raydium", logo: "/raydium.jpg", apy: 12.8, color: "#A855F7", tvl: 290_000_000 },
-  { name: "Orca", logo: "/orca.jpg", apy: 9.3, color: "#06B6D4", tvl: 210_000_000 },
-  { name: "Solend", logo: "/solend.jpg", apy: 5.8, color: "#F97316", tvl: 150_000_000 },
-  { name: "Jupiter", logo: "/jupiter.jpeg", apy: 15.2, color: "#14B8A6", tvl: 850_000_000 },
+  { name: "Kamino", logo: "/kamino-logo.jpeg", apy: 8.2, color: "#1E3A8A", tvl: 420_000_000 },
+  { name: "MarginFi", logo: "/marginfi-logo.png", apy: 6.1, color: "#000000", tvl: 310_000_000 },
+  { name: "Marinade", logo: "/marinade-logo.jpg", apy: 7.4, color: "#22C55E", tvl: 580_000_000 },
+  { name: "Raydium", logo: "/raydium-logo.jpeg", apy: 12.8, color: "#9333EA", tvl: 290_000_000 },
+  { name: "Orca", logo: "/orca-logo.png", apy: 9.3, color: "#06B6D4", tvl: 210_000_000 },
+  { name: "Solend", logo: "/solend-llogo.png", apy: 5.8, color: "#F97316", tvl: 150_000_000 },
+  { name: "Jupiter", logo: "/jupiter-logo.jpeg", apy: 15.2, color: "#14B8A6", tvl: 850_000_000 },
 ];
 
 export const MOCK_ALLOCATIONS: Allocation[] = [
@@ -53,8 +53,8 @@ export const MOCK_ALLOCATIONS: Allocation[] = [
     apy: 8.2,
     earned: 41.2,
     status: "active",
-    logo: "🔷",
-    color: "#3B82F6",
+    logo: "/kamino-logo.jpeg",
+    color: "#1E3A8A",
   },
   {
     protocol: "MarginFi",
@@ -63,8 +63,8 @@ export const MOCK_ALLOCATIONS: Allocation[] = [
     apy: 6.1,
     earned: 20.4,
     status: "active",
-    logo: "🟪",
-    color: "#8B5CF6",
+    logo: "/marginfi-logo.png",
+    color: "#000000",
   },
   {
     protocol: "Marinade",
@@ -73,8 +73,8 @@ export const MOCK_ALLOCATIONS: Allocation[] = [
     apy: 7.4,
     earned: 15.5,
     status: "active",
-    logo: "🟠",
-    color: "#F97316",
+    logo: "/marinade-logo.jpg",
+    color: "#22C55E",
   },
   {
     protocol: "Raydium",
@@ -83,8 +83,8 @@ export const MOCK_ALLOCATIONS: Allocation[] = [
     apy: 12.8,
     earned: 16.0,
     status: "paused",
-    logo: "🟣",
-    color: "#A855F7",
+    logo: "/raydium-logo.jpeg",
+    color: "#9333EA",
   },
 ];
 

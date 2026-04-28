@@ -1,10 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { MOCK_ACTIVITIES } from "@/lib/mockData";
 import { CryptoTooltip } from "@/components/shared/Tooltip";
+import { useOptivault } from "@/hooks/useOptivault";
+import { useWallet } from "@solana/wallet-adapter-react";
 import {
   ArrowRightLeft,
   ArrowDownToLine,
@@ -47,6 +49,36 @@ function formatTime(ts: string) {
 
 export default function ActivityPage() {
   const [filter, setFilter] = useState("all");
+  const { connected } = useWallet();
+  const { fetchVaultData } = useOptivault();
+  const [vault, setVault] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!connected) {
+      setLoading(false);
+      return;
+    }
+
+    let mounted = true;
+    const load = async () => {
+      try {
+        const data = await fetchVaultData();
+        if (mounted && data.success && data.vault) {
+          setVault(data.vault);
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        if (mounted) setLoading(false);
+      }
+    };
+
+    load();
+    return () => { mounted = false; };
+  }, [connected, fetchVaultData]);
+
+  const hasActivity = vault && vault.totalDeposited > 0;
 
   const filtered =
     filter === "all"
@@ -54,10 +86,22 @@ export default function ActivityPage() {
       : MOCK_ACTIVITIES.filter((a) => a.action === filter);
 
   return (
-    <div className="flex min-h-screen bg-background">
-      <Sidebar />
-      <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-auto">
-        <div className="max-w-4xl mx-auto pt-12 lg:pt-0">
+    <div className="flex min-h-screen bg-[#050505] text-white font-sans selection:bg-[#8b5cf6]/30 relative overflow-hidden">
+      <div
+        className="fixed inset-0 z-0 opacity-100 bg-[#050505]"
+        style={{
+          backgroundImage: "url('/background1.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      />
+      <div className="fixed inset-0 z-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px]" />
+
+      <div className="relative z-10 flex w-full h-screen">
+        <Sidebar />
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-auto">
+          <div className="max-w-4xl mx-auto pt-12 lg:pt-0">
           {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: -10 }}
@@ -95,8 +139,23 @@ export default function ActivityPage() {
             ))}
           </motion.div>
 
-          {/* Timeline */}
-          <div className="relative">
+          {loading ? (
+            <div className="flex flex-col gap-4 animate-pulse">
+              <div className="h-32 bg-white/[0.04] rounded-xl" />
+              <div className="h-32 bg-white/[0.04] rounded-xl" />
+            </div>
+          ) : !hasActivity ? (
+            <div className="text-center py-16 glass-card mt-8">
+              <div className="w-16 h-16 rounded-full bg-white/[0.04] flex items-center justify-center mx-auto mb-4">
+                <Clock className="w-8 h-8 text-text-muted" />
+              </div>
+              <h2 className="text-lg font-semibold text-text-primary mb-2">No activity yet</h2>
+              <p className="text-text-muted mb-6">Connect your wallet and deposit funds to start your AI yield optimization!</p>
+            </div>
+          ) : (
+            <>
+              {/* Timeline */}
+              <div className="relative">
             {/* Timeline line */}
             <div className="absolute left-[19px] top-0 bottom-0 w-[2px] bg-white/[0.04]" />
 
@@ -185,16 +244,19 @@ export default function ActivityPage() {
                   </motion.div>
                 );
               })}
+              </div>
             </div>
-          </div>
 
-          {filtered.length === 0 && (
-            <div className="text-center py-16">
-              <p className="text-text-muted">No activities found for this filter.</p>
-            </div>
+            {filtered.length === 0 && (
+              <div className="text-center py-16">
+                <p className="text-text-muted">No activities found for this filter.</p>
+              </div>
+            )}
+            </>
           )}
-        </div>
-      </main>
+          </div>
+        </main>
+      </div>
     </div>
   );
 }

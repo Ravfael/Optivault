@@ -49,10 +49,22 @@ export default function SettingsPage() {
   ];
 
   return (
-    <div className="flex min-h-screen bg-background">
-      <Sidebar />
-      <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-auto">
-        <div className="max-w-3xl mx-auto pt-12 lg:pt-0">
+    <div className="flex min-h-screen bg-[#050505] text-white font-sans selection:bg-[#8b5cf6]/30 relative overflow-hidden">
+      <div
+        className="fixed inset-0 z-0 opacity-100 bg-[#050505]"
+        style={{
+          backgroundImage: "url('/background1.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      />
+      <div className="fixed inset-0 z-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px]" />
+
+      <div className="relative z-10 flex w-full h-screen">
+        <Sidebar />
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-auto">
+          <div className="max-w-3xl mx-auto pt-12 lg:pt-0">
           <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
             <h1 className="text-2xl font-bold text-text-primary">Settings</h1>
             <p className="text-sm text-text-muted mt-1">Manage your AI agent preferences and account</p>
@@ -101,7 +113,7 @@ export default function SettingsPage() {
                 {PROTOCOLS.map((protocol) => (
                   <div key={protocol.name} className="flex items-center gap-4">
                     <div className="flex items-center gap-2 w-28 shrink-0">
-                      <span className="text-lg">{protocol.logo}</span>
+                      <img src={protocol.logo} alt={protocol.name} className="w-6 h-6 rounded-full object-cover border border-white/10" />
                       <span className="text-sm text-text-primary font-medium">{protocol.name}</span>
                     </div>
                     <div className="flex-1">
@@ -238,8 +250,9 @@ export default function SettingsPage() {
               )}
             </motion.section>
           </div>
-        </div>
-      </main>
+          </div>
+        </main>
+      </div>
     </div>
   );
 }

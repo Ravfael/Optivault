@@ -95,8 +95,9 @@ export function AllocationChart() {
                   className="w-3 h-3 rounded-full"
                   style={{ backgroundColor: d.color }}
                 />
-                <span className="text-sm text-text-primary">
-                  {d.logo} {d.name}
+                <span className="text-sm text-text-primary flex items-center gap-2">
+                  <img src={d.logo} alt={d.name} className="w-5 h-5 rounded-full object-cover border border-white/10" />
+                  {d.name}
                 </span>
               </div>
               <div className="text-right">
