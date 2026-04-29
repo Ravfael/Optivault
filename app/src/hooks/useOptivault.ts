@@ -24,6 +24,13 @@ export function useOptivault() {
       const [vaultPDA] = getVaultPDA(provider.wallet.publicKey);
       const [configPDA] = getUserConfigPDA(provider.wallet.publicKey);
 
+      // Check if vault already exists
+      const vaultAccountInfo = await connection.getAccountInfo(vaultPDA);
+      if (vaultAccountInfo) {
+        console.log("ℹ️ Vault already initialized");
+        return { success: true, alreadyInitialized: true };
+      }
+
       // Check balance to provide a better error instead of simulation failed block
       const balance = await connection.getBalance(provider.wallet.publicKey);
       if (balance === 0) {
@@ -46,6 +53,10 @@ export function useOptivault() {
       return { success: true, signature: tx };
     } catch (error: any) {
       console.error("❌ Initialize failed:", error);
+      if (error.message?.includes("This transaction has already been processed")) {
+        console.log("✅ Vault initialized (recovered from RPC retry simulation error)");
+        return { success: true, signature: "already-processed-via-rpc" };
+      }
       return { success: false, error: error.message };
     }
   }
@@ -57,10 +68,8 @@ export function useOptivault() {
       const program = getProgram(provider);
       const [vaultPDA] = getVaultPDA(provider.wallet.publicKey);
 
-      // We are simulating USDC with Devnet SOL.
-      // 1000 "USDC" normally = 1000 SOL if * 1_000_000_000, which is impossible to get from faucets.
-      // Scaling down to 10,000 lamports per nominal USDC so a 1000 "USDC" mock deposit only uses 0.01 Devnet SOL.
-      const lamports = amountSol * 10_000;
+      // Normal SOL scaling
+      const lamports = amountSol * 1_000_000_000;
 
       const balance = await connection.getBalance(provider.wallet.publicKey);
       if (balance < lamports) {
@@ -80,6 +89,10 @@ export function useOptivault() {
       return { success: true, signature: tx };
     } catch (error: any) {
       console.error("❌ Deposit failed:", error);
+      if (error.message?.includes("This transaction has already been processed")) {
+        console.log("✅ Deposit successful (recovered from RPC retry simulation error)");
+        return { success: true, signature: "already-processed-via-rpc" };
+      }
       return { success: false, error: error.message };
     }
   }
@@ -106,6 +119,10 @@ export function useOptivault() {
       return { success: true, signature: tx };
     } catch (error: any) {
       console.error("❌ Withdraw failed:", error);
+      if (error.message?.includes("This transaction has already been processed")) {
+        console.log("✅ Withdraw successful (recovered from RPC retry simulation error)");
+        return { success: true, signature: "already-processed-via-rpc" };
+      }
       return { success: false, error: error.message };
     }
   }
@@ -118,8 +135,18 @@ export function useOptivault() {
       const [vaultPDA] = getVaultPDA(provider.wallet.publicKey);
       const [configPDA] = getUserConfigPDA(provider.wallet.publicKey);
 
+      const vaultAccountInfo = await connection.getAccountInfo(vaultPDA);
+      if (!vaultAccountInfo) {
+        return { success: true, vault: null, config: null };
+      }
+
       const vault = await program.account.vaultAccount.fetch(vaultPDA);
       const config = await program.account.userConfig.fetch(configPDA);
+
+      console.log("Raw vault data from chain:", {
+        totalDepositedLamports: vault.totalDeposited.toString(),
+        totalEarnedLamports: vault.totalEarned.toString(),
+      });
 
       return {
         success: true,
@@ -136,6 +163,7 @@ export function useOptivault() {
         },
       };
     } catch (error: any) {
+      console.error("❌ Fetch vault data failed:", error);
       return { success: false, error: error.message };
     }
   }

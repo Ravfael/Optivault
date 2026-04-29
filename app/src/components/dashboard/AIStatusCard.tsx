@@ -8,7 +8,7 @@ import { CryptoTooltip } from "@/components/shared/Tooltip";
 
 interface AIStatusCardProps {
   isActiveInitial?: boolean;
-  lastRebalanceTime?: number;
+  lastRebalanceTime?: Date | null;
 }
 
 export function AIStatusCard({ isActiveInitial = true, lastRebalanceTime }: AIStatusCardProps) {
@@ -112,7 +112,14 @@ export function AIStatusCard({ isActiveInitial = true, lastRebalanceTime }: AISt
             <p className="text-sm text-text-muted">
               Last action:{" "}
               <span className="text-text-primary">
-                <CryptoTooltip term="Rebalance">Rebalanced</CryptoTooltip> {lastRebalanceTime ? new Date(lastRebalanceTime * 1000).toLocaleString() : "Recently"}
+                {lastRebalanceTime && lastRebalanceTime.getTime() > 0 ? (
+                  <>
+                    <CryptoTooltip term="Rebalance">Rebalanced </CryptoTooltip>
+                    {lastRebalanceTime.toLocaleString()}
+                  </>
+                ) : (
+                  "Pending initial AI execution..."
+                )}
               </span>
             </p>
           </div>

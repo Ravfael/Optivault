@@ -3,6 +3,8 @@
 import { motion } from "framer-motion";
 import { CheckCircle2, ArrowRight, Bot } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 interface SuccessStepProps {
   amount: string;
@@ -18,6 +20,16 @@ const riskLabels: Record<string, string> = {
 };
 
 export function SuccessStep({ amount, asset, riskProfile, signature }: SuccessStepProps) {
+  const router = useRouter();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      router.push("/dashboard");
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, [router]);
+
   return (
     <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="max-w-lg mx-auto text-center">
       {/* Animated checkmark */}

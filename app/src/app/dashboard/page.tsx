@@ -10,6 +10,7 @@ import { AllocationsTable } from "@/components/dashboard/AllocationsTable";
 import { motion } from "framer-motion";
 import { useOptivault } from "@/hooks/useOptivault";
 import { useWallet } from "@solana/wallet-adapter-react";
+import Link from "next/link";
 
 const sparklineData = [4, 6, 5, 8, 7, 9, 8, 10, 9, 11, 10, 12, 11, 13, 14];
 
@@ -25,11 +26,15 @@ export default function DashboardPage() {
     let mounted = true;
 
     const load = async () => {
-      if (!vault) setLoading(true);
+      setLoading(true);
       try {
         const data = await fetchVaultData();
         if (mounted) {
-          setVault(data);
+          if (data && data.success) {
+            setVault(data.vault);
+          } else {
+            setVault(null);
+          }
         }
       } catch (err) {
         console.error("Failed to fetch vault data:", err);
@@ -44,7 +49,7 @@ export default function DashboardPage() {
       mounted = false;
       clearInterval(interval);
     };
-  }, [connected, fetchVaultData]);
+  }, [connected]);
 
   return (
     <div className="flex min-h-screen bg-[#050505] text-white font-sans selection:bg-[#8b5cf6]/30 relative overflow-hidden">
@@ -87,6 +92,17 @@ export default function DashboardPage() {
                   <div className="h-64 bg-white/[0.04] rounded-xl" />
                 </div>
               </div>
+            ) : !vault ? (
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="glass-card p-12 text-center max-w-lg mx-auto mt-12">
+                <div className="w-16 h-16 bg-white/[0.02] border border-white/[0.05] rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl">🤖</span>
+                </div>
+                <h2 className="text-xl font-bold mb-2">No active vault found</h2>
+                <p className="text-text-muted mb-6">Start by making a deposit to activate your AI agent.</p>
+                <Link href="/setup" className="btn-primary inline-flex items-center gap-2">
+                  Setup Vault Now
+                </Link>
+              </motion.div>
             ) : (
               <>
                 {/* Portfolio Cards */}
