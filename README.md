@@ -10,20 +10,20 @@
 </p>
 
 <p align="center">
-  <strong>Optivault</strong> is an intelligent, non-custodial yield aggregator on the Solana blockchain — where you can deposit your assets, select a personalized risk profile, and let an automated AI Agent dynamically rebalance your portfolio.
+  <strong>Optivault</strong> is an intelligent, non-custodial yield aggregator on the Solana blockchain where you can deposit your assets, select a personalized risk profile, and let an automated AI Agent dynamically rebalance your portfolio.
 </p>
 
 ---
 
 ## ✨ Features
 
-| Feature | Description |
-|---|---|
-| 🏦 **Personalized Vaults** | Define your time horizon and set your risk appetite (Conservative, Balanced, Aggressive). |
-| 🤖 **AI-Driven Rebalancing** | An off-chain analyzer continuously monitors protocol APYs, liquidity, and risk metrics. |
-| 🔒 **On-chain Security** | Funds are secured on-chain via our Rust-based Anchor program in user-specific PDAs. |
-| ⚡ **Automated Execution** | The AI agent automatically fires signed rebalance transactions to capture the highest safe yields. |
-| 🌐 **Zero-Friction UI** | A seamless Next.js frontend with robust wallet integration for tracking performance and allocations. |
+| Feature                      | Description                                                                                          |
+| ---------------------------- | ---------------------------------------------------------------------------------------------------- |
+| 🏦 **Personalized Vaults**   | Define your time horizon and set your risk appetite (Conservative, Balanced, Aggressive).            |
+| 🤖 **AI-Driven Rebalancing** | An off-chain analyzer continuously monitors protocol APYs, liquidity, and risk metrics.              |
+| 🔒 **On-chain Security**     | Funds are secured on-chain via our Rust-based Anchor program in user-specific PDAs.                  |
+| ⚡ **Automated Execution**   | The AI agent automatically fires signed rebalance transactions to capture the highest safe yields.   |
+| 🌐 **Zero-Friction UI**      | A seamless Next.js frontend with robust wallet integration for tracking performance and allocations. |
 
 ---
 
@@ -62,14 +62,15 @@ Optivault/
 ## 🔗 Smart Contracts (Anchor Program)
 
 ### `optivault`
+
 > Core Anchor program managing user deposits, risk profiles, and rebalancing constraints.
 
-| Function | Access | Description |
-|---|---|---|
-| `initialize(risk_level, time_horizon)` | User | Initialize a new user vault with specific risk settings |
-| `deposit(amount)` | User | Deposit tokens into the user's vault PDA |
-| `withdraw(amount)` | User | Withdraw tokens from the vault |
-| `rebalance(target_protocol, amount)` | Authorized Agent | AI agent executes optimal yield routing based on risk profile |
+| Function                               | Access           | Description                                                   |
+| -------------------------------------- | ---------------- | ------------------------------------------------------------- |
+| `initialize(risk_level, time_horizon)` | User             | Initialize a new user vault with specific risk settings       |
+| `deposit(amount)`                      | User             | Deposit tokens into the user's vault PDA                      |
+| `withdraw(amount)`                     | User             | Withdraw tokens from the vault                                |
+| `rebalance(target_protocol, amount)`   | Authorized Agent | AI agent executes optimal yield routing based on risk profile |
 
 - **State Management**: Stores `risk_level` and `time_horizon` on-chain.
 - **Security**: Strict access controls ensuring only authorized agent can rebalance, while only the user can withdraw.
@@ -79,25 +80,28 @@ Optivault/
 ## 🖥️ Tech Stack
 
 ### Smart Contract / Blockchain
-| Tool | Purpose |
-|---|---|
-| [Solana](https://solana.com/) | High-performance blockchain |
+
+| Tool                                   | Purpose                         |
+| -------------------------------------- | ------------------------------- |
+| [Solana](https://solana.com/)          | High-performance blockchain     |
 | [Anchor](https://www.anchor-lang.com/) | Solana smart contract framework |
-| [Rust](https://www.rust-lang.org/) | Smart contract language |
+| [Rust](https://www.rust-lang.org/)     | Smart contract language         |
 
 ### Frontend UI
-| Tool | Purpose |
-|---|---|
-| [Next.js](https://nextjs.org/) | React framework for web applications |
-| [Tailwind CSS](https://tailwindcss.com/) | Utility-first styling |
-| [@solana/wallet-adapter](https://solana.com/) | Wallet connection UI |
+
+| Tool                                          | Purpose                              |
+| --------------------------------------------- | ------------------------------------ |
+| [Next.js](https://nextjs.org/)                | React framework for web applications |
+| [Tailwind CSS](https://tailwindcss.com/)      | Utility-first styling                |
+| [@solana/wallet-adapter](https://solana.com/) | Wallet connection UI                 |
 
 ### AI Agent
-| Tool | Purpose |
-|---|---|
-| [Node.js](https://nodejs.org/) | Runtime environment |
-| [TypeScript](https://www.typescriptlang.org/) | Type-safe execution |
-| [@solana/web3.js](https://solana.com/) | On-chain interactions |
+
+| Tool                                          | Purpose               |
+| --------------------------------------------- | --------------------- |
+| [Node.js](https://nodejs.org/)                | Runtime environment   |
+| [TypeScript](https://www.typescriptlang.org/) | Type-safe execution   |
+| [@solana/web3.js](https://solana.com/)        | On-chain interactions |
 
 ---
 
@@ -106,6 +110,7 @@ Optivault/
 ### Prerequisites
 
 Make sure you have the following installed:
+
 - [Node.js](https://nodejs.org/en/) **v18+**
 - Yarn / npm
 - [Rust](https://www.rust-lang.org/tools/install) & [Solana CLI](https://docs.solana.com/cli/install-solana-cli-tools)
@@ -120,16 +125,19 @@ cd optivault
 ```
 
 **Install dependencies:**
+
 ```bash
 yarn install
 ```
 
 **Build the Anchor program:**
+
 ```bash
 anchor build
 ```
 
 **Deploy to localnet or devnet:**
+
 ```bash
 anchor deploy
 ```
@@ -143,11 +151,13 @@ cd app
 ```
 
 **Install dependencies:**
+
 ```bash
 npm install
 ```
 
 **Start the development server:**
+
 ```bash
 npm run dev
 ```
@@ -163,6 +173,7 @@ cd agent
 ```
 
 **Install dependencies:**
+
 ```bash
 npm install
 ```
@@ -176,6 +187,7 @@ cp .env.example .env
 ```
 
 **Start the monitoring and execution agent:**
+
 ```bash
 npm start
 ```
@@ -215,19 +227,19 @@ npm start
 
 ## 📊 Risk Profiles
 
-| Level | Strategy | Allowed Protocols |
-|---|---|---|
-| 🟢 Conservative | Low volatility, steady reliable yield | Kamino, MarginFi |
-| 🟡 Balanced | Moderate risk over medium timeframe | Kamino, MarginFi, Drift |
-| 🔴 Aggressive | High yield optimization, frequent moves | All supported protocols |
+| Level           | Strategy                                | Allowed Protocols       |
+| --------------- | --------------------------------------- | ----------------------- |
+| 🟢 Conservative | Low volatility, steady reliable yield   | Kamino, MarginFi        |
+| 🟡 Balanced     | Moderate risk over medium timeframe     | Kamino, MarginFi, Drift |
+| 🔴 Aggressive   | High yield optimization, frequent moves | All supported protocols |
 
 ---
 
 ## 🏆 Hackathon Submission Details
 
-**Track:** DeFi / AI & Consumer  
-**Live Demo:** *(Add your link here)*  
-**Video Presentation:** *(Add your link here)*  
+**Track:** DeFi  
+**Live Demo:** _(Add your link here)_  
+**Video Presentation:** _(Add your link here)_
 
 ---
 
