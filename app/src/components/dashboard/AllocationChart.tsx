@@ -96,7 +96,7 @@ export function AllocationChart() {
                   style={{ backgroundColor: d.color }}
                 />
                 <span className="text-sm text-text-primary flex items-center gap-2">
-                  <img src={d.logo} alt={d.name} className="w-5 h-5 rounded-full object-cover border border-white/10" />
+                  <img /* eslint-disable-next-line @next/next/no-img-element */  /* eslint-disable-next-line @next/next/no-img-element */  src={d.logo} alt={d.name} className="w-5 h-5 rounded-full object-cover border border-white/10" />
                   {d.name}
                 </span>
               </div>

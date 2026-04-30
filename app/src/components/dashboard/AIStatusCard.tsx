@@ -16,7 +16,7 @@ export function AIStatusCard({ isActiveInitial = true, lastRebalanceTime }: AISt
   const [showConfirm, setShowConfirm] = useState(false);
 
   useEffect(() => {
-    setIsActive(isActiveInitial);
+    setTimeout(() => setIsActive(isActiveInitial), 0);
   }, [isActiveInitial]);
 
   const handleToggle = () => {

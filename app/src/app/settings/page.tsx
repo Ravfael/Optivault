@@ -113,7 +113,7 @@ export default function SettingsPage() {
                 {PROTOCOLS.map((protocol) => (
                   <div key={protocol.name} className="flex items-center gap-4">
                     <div className="flex items-center gap-2 w-28 shrink-0">
-                      <img src={protocol.logo} alt={protocol.name} className="w-6 h-6 rounded-full object-cover border border-white/10" />
+                      <img /* eslint-disable-next-line @next/next/no-img-element */  /* eslint-disable-next-line @next/next/no-img-element */  src={protocol.logo} alt={protocol.name} className="w-6 h-6 rounded-full object-cover border border-white/10" />
                       <span className="text-sm text-text-primary font-medium">{protocol.name}</span>
                     </div>
                     <div className="flex-1">

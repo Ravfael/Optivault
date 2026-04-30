@@ -56,7 +56,7 @@ export default function ActivityPage() {
 
   useEffect(() => {
     if (!connected) {
-      setLoading(false);
+      setTimeout(() => setLoading(false), 0);
       return;
     }
 
@@ -70,7 +70,7 @@ export default function ActivityPage() {
       } catch (err) {
         console.error(err);
       } finally {
-        if (mounted) setLoading(false);
+        if (mounted) setTimeout(() => setLoading(false), 0);
       }
     };
 

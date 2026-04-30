@@ -45,7 +45,7 @@ function Counter({ value, prefix = "", suffix = "" }: { value: number; prefix?: 
 
   useEffect(() => {
     if (isInView && ref.current) {
-      let start = 0;
+      const start = 0;
       const duration = 5000;
       const startTime = performance.now();
 
@@ -347,7 +347,7 @@ export default function LandingPage() {
           <motion.div className="flex w-max items-center" animate={{ x: ["0%", "-50%"] }} transition={{ ease: "linear", duration: 25, repeat: Infinity }} whileHover={{ animationPlayState: "paused" }}>
             {[...PROTOCOLS, ...PROTOCOLS].map((protocol, i) => (
               <div key={`${protocol.name}-${i}`} className="flex items-center justify-center px-10 md:px-16 shrink-0">
-                <img src={protocol.logo} alt={protocol.name} className="h-20 md:h-28 w-auto object-contain rounded-2xl opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-300" />
+                <img /* eslint-disable-next-line @next/next/no-img-element */  /* eslint-disable-next-line @next/next/no-img-element */  src={protocol.logo} alt={protocol.name} className="h-20 md:h-28 w-auto object-contain rounded-2xl opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-300" />
               </div>
             ))}
           </motion.div>

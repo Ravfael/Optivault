@@ -1,4 +1,4 @@
-import { Connection, PublicKey, clusterApiUrl } from "@solana/web3.js";
+import { PublicKey } from "@solana/web3.js";
 import { AnchorProvider, Program, web3 } from "@coral-xyz/anchor";
 import idl from "./idl.json";
 import { Optivault } from "./optivault";

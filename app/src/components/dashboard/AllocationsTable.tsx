@@ -57,7 +57,7 @@ export function AllocationsTable() {
               >
                 <td className="py-4 pr-4">
                   <div className="flex items-center gap-3">
-                    <img
+                    <img /* eslint-disable-next-line @next/next/no-img-element */  /* eslint-disable-next-line @next/next/no-img-element */ 
                       src={allocation.logo}
                       alt={allocation.protocol}
                       className="w-8 h-8 rounded-full object-cover border border-white/10"
