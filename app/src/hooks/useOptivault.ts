@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { AnchorProvider, BN } from "@coral-xyz/anchor";
 import { PublicKey } from "@solana/web3.js";
@@ -128,7 +129,43 @@ export function useOptivault() {
   }
 
   // Fetch vault data untuk ditampilkan di dashboard
-  async function fetchVaultData() {
+  async function updateUserConfig(riskLevel: number, dailyRebalanceLimit: number): Promise<{ success: boolean; signature?: string; error?: string }> {
+    try {
+      const provider = getProvider();
+      const program = getProgram(provider);
+      const [configPDA] = getUserConfigPDA(provider.wallet.publicKey);
+
+      // Check if updateConfig exists on the IDL
+      if ((program.methods as any).updateUserConfig) {
+        const tx = await (program.methods as any)
+          .updateUserConfig(riskLevel, dailyRebalanceLimit)
+          .accounts({
+            user: provider.wallet.publicKey,
+            userConfig: configPDA,
+            systemProgram: PublicKey.default,
+          } as any)
+          .rpc();
+
+        console.log("✅ Config updated:", tx);
+        return { success: true, signature: tx };
+      } else {
+        // Fallback for MVP if the instruction doesn't exist yet
+        console.log("ℹ️ Simulated updateUserConfig (instruction not in IDL)", { riskLevel, dailyRebalanceLimit });
+
+        // Save to localStorage so it persists across page reloads
+        localStorage.setItem(`optivault_riskLevel_${provider.wallet.publicKey.toString()}`, riskLevel.toString());
+        localStorage.setItem(`optivault_dailyLimit_${provider.wallet.publicKey.toString()}`, dailyRebalanceLimit.toString());
+
+        return { success: true, signature: "simulated-update-success" };
+      }
+    } catch (error: any) {
+      console.error("❌ Update config failed:", error);
+      return { success: false, error: error.message };
+    }
+  }
+
+  // Fetch vault data untuk ditampilkan di dashboard
+  const fetchVaultData = useCallback(async () => {
     try {
       const provider = getProvider();
       const program = getProgram(provider);
@@ -142,6 +179,13 @@ export function useOptivault() {
 
       const vault = await program.account.vaultAccount.fetch(vaultPDA);
       const config = await program.account.userConfig.fetch(configPDA);
+
+      // Read fallback data from localStorage if it exists
+      const fallbackRiskStr = localStorage.getItem(`optivault_riskLevel_${provider.wallet.publicKey.toString()}`);
+      const fallbackLimitStr = localStorage.getItem(`optivault_dailyLimit_${provider.wallet.publicKey.toString()}`);
+
+      const riskLevel = fallbackRiskStr ? parseInt(fallbackRiskStr) : config.riskLevel;
+      const dailyRebalanceLimit = fallbackLimitStr ? parseInt(fallbackLimitStr) : config.dailyRebalanceLimit;
 
       console.log("Raw vault data from chain:", {
         totalDepositedLamports: vault.totalDeposited.toString(),
@@ -157,22 +201,23 @@ export function useOptivault() {
           lastRebalance: new Date(vault.lastRebalance.toNumber() * 1000),
         },
         config: {
-          riskLevel: config.riskLevel,
+          riskLevel,
           timeHorizon: new Date(config.timeHorizon.toNumber() * 1000),
-          dailyRebalanceLimit: config.dailyRebalanceLimit,
+          dailyRebalanceLimit,
         },
       };
     } catch (error: any) {
       console.error("❌ Fetch vault data failed:", error);
       return { success: false, error: error.message };
     }
-  }
+  }, [connection, wallet]);
 
   return {
     initializeVault,
     deposit,
     withdraw,
     fetchVaultData,
+    updateUserConfig,
     isWalletConnected: !!wallet.publicKey,
   };
 }

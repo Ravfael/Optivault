@@ -15,9 +15,13 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Optivault — AI-Powered DeFi Yield Optimizer on Solana",
+  title: "Optivault",
   description: "Let AI automatically manage and optimize your crypto yield on Solana. Connect your wallet, set your preferences, and earn — on autopilot.",
   keywords: ["DeFi", "Yield", "Solana", "AI", "Crypto", "Optimizer", "Optivault"],
+
+  icons: {
+    icon: "/logo_main.png",
+  },
 };
 
 export default function RootLayout({

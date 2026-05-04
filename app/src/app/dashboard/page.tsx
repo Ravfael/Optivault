@@ -44,12 +44,20 @@ export default function DashboardPage() {
     };
 
     load();
+
+    // Refresh vault data on focus
+    const onFocus = () => {
+      load();
+    };
+    window.addEventListener("focus", onFocus);
+
     const interval = setInterval(load, 30000);
     return () => {
       mounted = false;
       clearInterval(interval);
+      window.removeEventListener("focus", onFocus);
     };
-  }, [connected]);
+  }, [connected, fetchVaultData]);
 
   return (
     <div className="flex min-h-screen bg-[#050505] text-white font-sans selection:bg-[#8b5cf6]/30 relative overflow-hidden">
@@ -92,7 +100,7 @@ export default function DashboardPage() {
                   <div className="h-64 bg-white/[0.04] rounded-xl" />
                 </div>
               </div>
-            ) : !vault ? (
+            ) : !vault || vault.totalDeposited <= 0 ? (
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="glass-card p-12 text-center max-w-lg mx-auto mt-12">
                 <div className="w-16 h-16 bg-white/[0.02] border border-white/[0.05] rounded-full flex items-center justify-center mx-auto mb-4">
                   <span className="text-2xl">🤖</span>
