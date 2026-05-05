@@ -9,9 +9,10 @@ import { CryptoTooltip } from "@/components/shared/Tooltip";
 interface AIStatusCardProps {
   isActiveInitial?: boolean;
   lastRebalanceTime?: Date | null;
+  agentMessage?: string;
 }
 
-export function AIStatusCard({ isActiveInitial = true, lastRebalanceTime }: AIStatusCardProps) {
+export function AIStatusCard({ isActiveInitial = true, lastRebalanceTime, agentMessage }: AIStatusCardProps) {
   const [isActive, setIsActive] = useState(isActiveInitial);
   const [showConfirm, setShowConfirm] = useState(false);
 
@@ -92,17 +93,7 @@ export function AIStatusCard({ isActiveInitial = true, lastRebalanceTime }: AISt
           <ArrowRightLeft className="w-4 h-4 text-secondary mt-0.5 shrink-0" />
           <div>
             <p className="text-sm text-text-muted mb-1">Current Strategy</p>
-            <p className="text-sm text-text-primary">
-              Allocated 60% to Kamino (
-              <CryptoTooltip term="APY">
-                <span className="text-success">8.2% APY</span>
-              </CryptoTooltip>
-              ), 40% to MarginFi (
-              <CryptoTooltip term="APY">
-                <span className="text-secondary">6.1% APY</span>
-              </CryptoTooltip>
-              )
-            </p>
+            <p className="text-sm text-text-primary">{agentMessage ? agentMessage : "Waiting for agent data..."}</p>
           </div>
         </div>
 

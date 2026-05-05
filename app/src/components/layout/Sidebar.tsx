@@ -3,11 +3,12 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, PieChart, Activity, Settings, Zap, Menu, X } from "lucide-react";
+import { LayoutDashboard, PieChart, Activity, Settings, Zap, Menu, X, CircleDot } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { WalletButton } from "@/components/shared/WalletButton";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import { useAgentStream } from "@/hooks/useAgentStream";
 
 const navItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -19,6 +20,7 @@ const navItems = [
 export function Sidebar() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { isConnected } = useAgentStream();
 
   const sidebarContent = (
     <>
@@ -48,6 +50,15 @@ export function Sidebar() {
           );
         })}
       </nav>
+
+      {/* AI Agent Status */}
+      <div className="mb-4 px-3 py-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04] flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <CircleDot className={cn("w-4 h-4", isConnected ? "text-green-500" : "text-red-500")} />
+          <span className="text-xs font-medium text-text-primary">AI Agent</span>
+        </div>
+        <span className={cn("text-[10px] font-semibold uppercase tracking-wider", isConnected ? "text-green-500" : "text-red-500")}>{isConnected ? "Live" : "Offline"}</span>
+      </div>
 
       {/* Wallet */}
       <WalletButton variant="sidebar" />

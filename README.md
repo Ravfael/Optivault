@@ -43,7 +43,12 @@ Optivault/
 ├── 📁 app/                       # Frontend UI
 │   ├── 📁 src/
 │   │   ├── 📁 app/               # Next.js App Router pages
-│   │   ├── 📁 components/        # UI components (Dashboard, Setup)
+│   │   │   ├── 📁 activity/      # Activity log page
+│   │   │   ├── 📁 api/           # API routes (agent-events)
+│   │   │   ├── 📁 dashboard/     # AI Yield dashboard
+│   │   │   ├── 📁 settings/      # User settings page
+│   │   │   └── 📁 setup/         # Vault setup wizard
+│   │   ├── 📁 components/        # UI components (Dashboard, Setup, Layout)
 │   │   ├── 📁 hooks/             # Custom Solana hooks
 │   │   └── 📁 lib/               # Utility functions & Anchor IDL
 │   └── package.json
@@ -239,8 +244,8 @@ npm start
 ## 🏆 Hackathon Submission Details
 
 **Track:** DeFi  
-**Live Demo:** _(Add your link here)_  
-**Video Presentation:** _(Add your link here)_
+**Live Demo:** https://drive.google.com/drive/folders/1vq3v9u2Spz3wDZGdahPaX1BH3vGT8iGj?usp=sharing
+**Video Presentation:** https://drive.google.com/drive/folders/1vq3v9u2Spz3wDZGdahPaX1BH3vGT8iGj?usp=sharing
 
 ---
 

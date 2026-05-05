@@ -219,7 +219,7 @@ export default function SettingsPage() {
       <div
         className="fixed inset-0 z-0 opacity-100 bg-[#050505]"
         style={{
-          backgroundImage: "url('/background1.png')",
+          backgroundImage: "url('/background2.png')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",

@@ -20,6 +20,9 @@ export const CONFIG = {
   // yang APY-nya lebih tinggi minimal 1.5%
   MIN_APY_DIFFERENCE: 1.5,
 
+  // Frontend URL untuk mem-push SSE events
+  FRONTEND_URL: process.env.FRONTEND_URL || "http://localhost:3000",
+
   // Protokol yang didukung (placeholder pubkeys untuk sekarang)
   PROTOCOLS: {
     KAMINO: {

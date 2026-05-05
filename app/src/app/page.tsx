@@ -28,6 +28,7 @@ import {
   Camera,
   Disc,
 } from "lucide-react";
+import { BookOpen } from "lucide-react";
 import { Navbar } from "@/components/layout/Navbar";
 import { PROTOCOLS } from "@/lib/mockData";
 import { CryptoTooltip } from "@/components/shared/Tooltip";
@@ -101,6 +102,9 @@ export default function LandingPage() {
         {/* Grid overlay - adjusted to subtle deep black theme */}
         <div className="absolute inset-0 z-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px]" />
 
+        {/* Gradient fade to bottom for smooth transition to stats */}
+        <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-[#050505] to-transparent z-0" />
+
         <div className="relative z-10 max-w-4xl mx-auto text-center mt-8">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
             <h1
@@ -144,7 +148,7 @@ export default function LandingPage() {
       </section>
 
       {/* 2. Problem -> Solution Section (Why Optivault) */}
-      <section className="py-24 px-4 relative overflow-hidden border-t border-white/5">
+      <section className="py-24 px-4 relative overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#8b5cf6]/5 rounded-full blur-[120px] pointer-events-none" />
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="text-center mb-16">
@@ -203,7 +207,7 @@ export default function LandingPage() {
       </section>
 
       {/* 3. How It Works Section */}
-      <section id="how-it-works" className="py-24 px-4 relative border-y border-white/5 overflow-hidden">
+      <section id="how-it-works" className="py-[100px] px-4 relative overflow-hidden">
         <div
           className="absolute inset-0 z-0 opacity-40"
           style={{
@@ -213,30 +217,66 @@ export default function LandingPage() {
             backgroundRepeat: "no-repeat",
           }}
         />
-        <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#050505] via-transparent to-[#050505]" />
+
+        {/* Gradient fade to top for smooth transition */}
+        <div className="absolute top-0 left-0 right-0 h-48 bg-gradient-to-b from-[#050505] to-transparent z-0" />
+
+        {/* Gradient fade to bottom for smooth transition */}
+        <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-[#050505] to-transparent z-0" />
+
+        {/* Subtle radial gradient overlay at the center */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[600px] bg-[radial-gradient(circle_at_center,rgba(139,92,246,0.15)_0,transparent_70%)] pointer-events-none z-0" />
+
         <div className="max-w-6xl mx-auto relative z-10">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-5xl font-bold text-white mb-4 tracking-tight">How It Works</h2>
-            <p className="text-white/60 max-w-xl mx-auto text-lg">Four simple steps to start earning optimized yield.</p>
+          <div className="text-center mb-20">
+            <h2 className="text-[48px] font-bold text-white mb-4 tracking-tight leading-tight">How It Works</h2>
+            <p className="text-[#94a3b8] max-w-xl mx-auto text-base sm:text-lg">Four simple steps to start earning optimized yield.</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 relative">
-            {[
-              { icon: Wallet, title: "Connect Wallet", desc: "Securely link your Solana wallet." },
-              { icon: ArrowDownCircle, title: "Deposit Funds", desc: "Add USDC, SOL, or other assets." },
-              { icon: Cpu, title: "AI Allocates", desc: "Our engine scans for best yields." },
-              { icon: LineChart, title: "Earn Yield", desc: "Sit back and watch crypto grow." },
-            ].map((step, i) => (
-              <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="relative z-10 flex flex-col items-center text-center group">
-                <div className="w-24 h-24 rounded-full bg-[#0a0a0a] border border-white/10 flex items-center justify-center mb-6 relative group-hover:border-[#8b5cf6]/50 transition-colors shadow-xl">
-                  <div className="absolute inset-0 rounded-full bg-[#8b5cf6]/0 group-hover:bg-[#8b5cf6]/10 transition-colors" />
-                  <step.icon className="w-10 h-10 text-white/80 group-hover:text-[#8b5cf6] transition-colors relative z-10" />
-                  <div className="absolute -bottom-2 -right-2 w-8 h-8 rounded-full bg-[#110c22] border border-white/10 flex items-center justify-center text-xs font-bold text-white/50">{i + 1}</div>
-                </div>
-                <h3 className="text-xl font-bold text-white mb-2">{step.title}</h3>
-                <p className="text-white/50 text-sm max-w-[200px] leading-relaxed">{step.desc}</p>
-              </motion.div>
-            ))}
+          <div className="relative">
+            {/* Horizontal Line Connector (Hidden on mobile) */}
+            <div className="hidden md:block absolute top-[60px] left-[15%] right-[15%] h-[2px] z-0 overflow-hidden">
+              <div className="absolute inset-0 border-t-2 border-dashed border-white/10" />
+              <motion.div
+                className="absolute top-0 bottom-0 w-[50%] bg-gradient-to-r from-transparent via-[#8b5cf6] to-transparent opacity-70"
+                animate={{ left: ["-50%", "100%"] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+              />
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-6 relative z-10">
+              {[
+                { icon: Wallet, title: "Connect Wallet", desc: "Securely link your Solana wallet." },
+                { icon: ArrowDownCircle, title: "Deposit Funds", desc: "Add USDC, SOL, or other assets." },
+                { icon: Cpu, title: "AI Allocates", desc: "Our engine scans for best yields." },
+                { icon: LineChart, title: "Earn Yield", desc: "Sit back and watch crypto grow." },
+              ].map((step, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.15 }}
+                  whileHover={{ y: -5 }}
+                  className="relative flex flex-col items-center text-center group"
+                >
+                  {/* Glowing Icon Container */}
+                  <div className="w-[120px] h-[120px] rounded-full bg-[#0a0a0a] border border-white/5 flex items-center justify-center mb-8 relative transition-all duration-300 group-hover:shadow-[0_0_30px_rgba(139,92,246,0.3)] shadow-[inset_0_0_20px_rgba(139,92,246,0.05)] group-hover:border-[#8b5cf6]/50">
+                    <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_center,rgba(139,92,246,0.2)_0,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+
+                    <step.icon className="w-10 h-10 text-white transition-transform duration-300 relative z-10 group-hover:scale-110" />
+
+                    {/* Step Number Badge */}
+                    <div className="absolute top-0 right-0 w-8 h-8 rounded-full bg-gradient-to-tr from-[#8b5cf6] to-[#c084fc] flex items-center justify-center text-sm font-bold text-white shadow-lg border border-white/20 transform translate-x-1 -translate-y-1">
+                      {i + 1}
+                    </div>
+                  </div>
+
+                  <h3 className="text-[16px] sm:text-[18px] font-semibold text-white mb-3">{step.title}</h3>
+                  <p className="text-[#94a3b8] text-[14px] max-w-[200px] leading-relaxed">{step.desc}</p>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -331,7 +371,7 @@ export default function LandingPage() {
       </section>
 
       {/* 5. Supported Protocols Section */}
-      <section id="protocols" className="py-24 relative bg-black/40 border-y border-white/5 overflow-hidden">
+      <section id="protocols" className="py-24 relative bg-black/40 overflow-hidden">
         <div className="max-w-5xl mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4 tracking-tight">Integrated Protocols</h2>
@@ -347,7 +387,11 @@ export default function LandingPage() {
           <motion.div className="flex w-max items-center" animate={{ x: ["0%", "-50%"] }} transition={{ ease: "linear", duration: 25, repeat: Infinity }} whileHover={{ animationPlayState: "paused" }}>
             {[...PROTOCOLS, ...PROTOCOLS].map((protocol, i) => (
               <div key={`${protocol.name}-${i}`} className="flex items-center justify-center px-10 md:px-16 shrink-0">
-                <img /* eslint-disable-next-line @next/next/no-img-element */  /* eslint-disable-next-line @next/next/no-img-element */  src={protocol.logo} alt={protocol.name} className="h-20 md:h-28 w-auto object-contain rounded-2xl opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-300" />
+                <img
+                  /* eslint-disable-next-line @next/next/no-img-element */ /* eslint-disable-next-line @next/next/no-img-element */ src={protocol.logo}
+                  alt={protocol.name}
+                  className="h-20 md:h-28 w-auto object-contain rounded-2xl opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-300"
+                />
               </div>
             ))}
           </motion.div>
@@ -392,7 +436,7 @@ export default function LandingPage() {
       </section>
 
       {/* 7. FAQ Section */}
-      <section id="faq" className="py-24 px-4 bg-black/40 border-y border-white/5">
+      <section id="faq" className="py-24 px-4 bg-black/40">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4 tracking-tight">Frequently Asked Questions</h2>
@@ -424,7 +468,7 @@ export default function LandingPage() {
       </section>
 
       {/* 8. Final CTA Section with background3.png */}
-      <section className="relative py-32 px-4 overflow-hidden flex justify-center border-t border-white/5">
+      <section className="relative py-32 px-4 overflow-hidden flex justify-center">
         <div
           className="absolute inset-0 z-0 opacity-40 bg-[#050505]"
           style={{
@@ -434,6 +478,13 @@ export default function LandingPage() {
             backgroundRepeat: "no-repeat",
           }}
         />
+
+        {/* Gradient fade to top for smooth transition from FAQ */}
+        <div className="absolute top-0 left-0 right-0 h-48 bg-gradient-to-b from-[#050505] to-transparent z-0" />
+
+        {/* Gradient fade to bottom for smooth transition to footer */}
+        <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-[#050505] to-transparent z-0" />
+
         <div className="relative z-10 w-full max-w-4xl bg-gradient-to-b from-[#110c22]/90 to-[#0a0a0c]/90 backdrop-blur-xl border border-[#8b5cf6]/20 rounded-[40px] p-12 md:p-20 text-center shadow-[0_0_80px_rgba(139,92,246,0.15)]">
           <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight">
             Start earning smarter
@@ -452,7 +503,7 @@ export default function LandingPage() {
       </section>
 
       {/* 9. Footer */}
-      <footer className="relative border-t border-white/5 pt-20 pb-10 px-4 overflow-hidden">
+      <footer className="relative pt-20 pb-10 px-4 overflow-hidden">
         <div className="max-w-6xl mx-auto relative z-10">
           {/* Top Section */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8 mb-16">
@@ -473,22 +524,22 @@ export default function LandingPage() {
               <h4 className="text-white font-bold mb-6 tracking-wider uppercase text-sm">Platform</h4>
               <ul className="space-y-4">
                 <li>
-                  <Link href="#" className="text-white/50 hover:text-white transition-colors text-sm font-medium">
+                  <Link href="#how-it-works" className="text-white/50 hover:text-white transition-colors text-sm font-medium">
                     How It Works
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className="text-white/50 hover:text-white transition-colors text-sm font-medium">
+                  <Link href="#protocols" className="text-white/50 hover:text-white transition-colors text-sm font-medium">
                     Protocols
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className="text-white/50 hover:text-white transition-colors text-sm font-medium">
+                  <Link href="#security" className="text-white/50 hover:text-white transition-colors text-sm font-medium">
                     Security
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className="text-white/50 hover:text-white transition-colors text-sm font-medium">
+                  <Link href="#faq" className="text-white/50 hover:text-white transition-colors text-sm font-medium">
                     FAQ
                   </Link>
                 </li>
@@ -499,16 +550,27 @@ export default function LandingPage() {
             <div>
               <h4 className="text-white font-bold mb-6 tracking-wider uppercase text-sm">Community</h4>
               <div className="flex items-center gap-3">
-                <a href="#" className="w-10 h-10 rounded-full bg-[#0a0a0e] border border-white/5 flex items-center justify-center text-white/50 hover:bg-[#8b5cf6]/20 hover:text-[#8b5cf6] hover:border-[#8b5cf6]/50 transition-all">
+                <a
+                  href="https://x.com/Optivault_AI"
+                  className="w-10 h-10 rounded-full bg-[#0a0a0e] border border-white/5 flex items-center justify-center text-white/50 hover:bg-[#8b5cf6]/20 hover:text-[#8b5cf6] hover:border-[#8b5cf6]/50 transition-all"
+                >
                   <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
                   </svg>
                 </a>
-                <a href="#" className="w-10 h-10 rounded-full bg-[#0a0a0e] border border-white/5 flex items-center justify-center text-white/50 hover:bg-[#8b5cf6]/20 hover:text-[#8b5cf6] hover:border-[#8b5cf6]/50 transition-all">
-                  <Disc className="w-4 h-4" />
+                <a
+                  href="https://github.com/Ravfael/Optivault"
+                  className="w-10 h-10 rounded-full bg-[#0a0a0e] border border-white/5 flex items-center justify-center text-white/50 hover:bg-[#8b5cf6]/20 hover:text-[#8b5cf6] hover:border-[#8b5cf6]/50 transition-all"
+                >
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.341-3.369-1.341-.454-1.155-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z" />
+                  </svg>
                 </a>
-                <a href="#" className="w-10 h-10 rounded-full bg-[#0a0a0e] border border-white/5 flex items-center justify-center text-white/50 hover:bg-[#8b5cf6]/20 hover:text-[#8b5cf6] hover:border-[#8b5cf6]/50 transition-all">
-                  <Camera className="w-4 h-4" />
+                <a
+                  href="https://github.com/Ravfael/Optivault"
+                  className="w-10 h-10 rounded-full bg-[#0a0a0e] border border-white/5 flex items-center justify-center text-white/50 hover:bg-[#8b5cf6]/20 hover:text-[#8b5cf6] hover:border-[#8b5cf6]/50 transition-all"
+                >
+                  <BookOpen className="w-4 h-4" />
                 </a>
               </div>
             </div>

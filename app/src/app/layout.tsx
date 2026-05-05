@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   keywords: ["DeFi", "Yield", "Solana", "AI", "Crypto", "Optimizer", "Optivault"],
 
   icons: {
-    icon: "/logo_main.png",
+    icon: "/optivault.jpeg",
   },
 };
 
