@@ -244,8 +244,8 @@ npm start
 ## 🏆 Hackathon Submission Details
 
 **Track:** DeFi  
-**Live Demo:** https://drive.google.com/drive/folders/1vq3v9u2Spz3wDZGdahPaX1BH3vGT8iGj?usp=sharing
-**Video Presentation:** https://drive.google.com/drive/folders/1vq3v9u2Spz3wDZGdahPaX1BH3vGT8iGj?usp=sharing
+**Live Demo:** https://youtu.be/Vd4qzwGsE5Q?si=KsDypV-n02ij8hMD
+**Video Presentation:** https://youtu.be/DMi268AB3aY?si=xYL6Bn2lyHC5qDah
 
 ---
 
